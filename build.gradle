@@ -76,7 +76,8 @@ subprojects {
 
     test {
         useJUnitPlatform()
-        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+        // Use all available processors for faster local builds; was intdiv(2) which felt too conservative
+        maxParallelForks = Runtime.runtime.availableProcessors()
         finalizedBy jacocoTestReport
     }
 
