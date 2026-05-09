@@ -76,8 +76,9 @@ subprojects {
 
     test {
         useJUnitPlatform()
-        // Use all available processors for faster local builds; was intdiv(2) which felt too conservative
-        maxParallelForks = Runtime.runtime.availableProcessors()
+        // Cap at 4 to avoid overwhelming the machine during normal dev work;
+        // full CPU count was causing thermal throttling on my laptop
+        maxParallelForks = Math.min(4, Runtime.runtime.availableProcessors())
         finalizedBy jacocoTestReport
     }
 
